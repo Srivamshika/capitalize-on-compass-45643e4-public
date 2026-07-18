@@ -1,5 +1,11 @@
+import sys
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 
+# Render's build command can execute from the repository root even when this
+# service has a backend root directory. Make the generated app import explicit.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app import app
 
 client = TestClient(app)
